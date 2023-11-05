@@ -62,7 +62,6 @@ int main()
 {
 
   struct humanData data;
-  char symbol;
   int result;
 
   printf("------- Welcome to MY CALCULATOR -------\n");

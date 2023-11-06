@@ -1,20 +1,35 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
+const float PI = 3.14;
 
 struct humanData{
-  int firstNumber;
-  int secondNumber;
+  float firstNumber;
+  float secondNumber;
   char symbol;
 };
 
-int getNumber()
-{
-  int number;
-  printf("Write a number: ");
-  scanf("%d", &number);
+struct isResult{
+  bool isCorrect;
+  float number;
+};
 
-  return number;
+float getNumber() {
+    char humanInput[5];
+    float number;
+
+    printf("Write a number (a for pi(3.14)): ");
+  
+    scanf("%s", &humanInput);
+
+    if (strcmp(humanInput, "a") == 0) {
+        number = PI;
+    } else {
+       number = atof(humanInput);
+    }
+    return number;
 }
 
 char getSymbol()
@@ -26,43 +41,45 @@ char getSymbol()
   return symbol;
 }
 
-int getResult(struct humanData data)
+struct isResult getResult(struct humanData data) 
 {
-  int result;
-  int firstNumber = data.firstNumber;
-  int secondNumber = data.secondNumber;
+
+  struct isResult resultObj; 
+  resultObj.isCorrect = true;
+
+  float firstNumber = data.firstNumber;
+  float secondNumber = data.secondNumber;
   char symbol = data.symbol;
 
   switch (symbol)
   {
     case '+':
-      result = firstNumber + secondNumber;
+      resultObj.number = firstNumber + secondNumber;
       break;
       
     case '-':
-      result = firstNumber - secondNumber;
+      resultObj.number = firstNumber - secondNumber;
       break;
 
     case 'x':
-      result = firstNumber * secondNumber;
+      resultObj.number = firstNumber * secondNumber;
       break;
 
     default:
-      result = 0;
+      resultObj.isCorrect = false;
       break;
   }
 
-  return result;
+  return resultObj;
   
 }
-
 
 
 int main()
 {
 
   struct humanData data;
-  int result;
+  struct isResult result;
 
   printf("------- Welcome to MY CALCULATOR -------\n");
   
@@ -78,8 +95,15 @@ int main()
 
   result = getResult(data);
 
+  system("cls");
+
+  if (result.isCorrect){
+    printf("Result %.2f %c %.2f = %.2f", data.firstNumber, data.symbol, data.secondNumber, result.number);
+  }else{
+    printf("Los parámetros no son correctos");
+  }
+
   
-  printf("Result %d %c %d = %d", data.firstNumber, data.symbol, data.secondNumber, result);
   
   return 0;
 

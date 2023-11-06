@@ -5,6 +5,9 @@
 #include <ctype.h>
 
 
+// Ejercicio para practicar lo básico de c
+
+
 const float PI = 3.14;
 
 struct humanData {

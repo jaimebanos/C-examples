@@ -1,0 +1,15 @@
+Crea un menú que permita a los usuarios realizar las siguientes operaciones:
+
+Agregar un nuevo contacto.
+Listar todos los contactos almacenados.
+Eliminar un contacto específico.
+Salir del programa.
+Utiliza malloc para asignar memoria dinámica para un arreglo de estructuras Contact para almacenar los contactos.
+
+Utiliza realloc para ajustar el tamaño del arreglo cuando se agrega un nuevo contacto. Por ejemplo, puedes duplicar el tamaño del arreglo cuando se llena.
+
+Utiliza free para liberar la memoria cuando el programa se cierra.
+
+Este ejercicio te permite practicar la asignación dinámica de memoria para almacenar una lista de contactos, la redimensión del arreglo de contactos cuando sea necesario y la liberación de la memoria cuando ya no se necesite. También puedes implementar la funcionalidad para agregar y eliminar contactos, lo que te dará la oportunidad de trabajar con las operaciones de gestión de memoria mencionadas.
+
+Recuerda verificar el valor devuelto por malloc, realloc y asegurarte de liberar la memoria correctamente con free para evitar fugas de memoria.

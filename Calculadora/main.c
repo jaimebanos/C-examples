@@ -5,106 +5,124 @@
 
 const float PI = 3.14;
 
-struct humanData{
-  float firstNumber;
-  float secondNumber;
-  char symbol;
+struct humanData {
+    float firstNumber;
+    float secondNumber;
+    char symbol;
 };
 
-struct isResult{
-  bool isCorrect;
-  float number;
+struct isResult {
+    bool isCorrect;
+    float number;
 };
+
+
+void showResult(struct humanData data, float number){
+  printf("\033[1;32m");  // Verde brillante
+  printf("    %.2f\n%c   %.2f\n  -------\n    %.2f", data.firstNumber, data.symbol, data.secondNumber, number);
+  printf("\033[0m");  // Restaurar color predeterminado
+}
+
+
+
+// Declaración de la función getResult
+struct isResult getResult(struct humanData data);
 
 float getNumber() {
     char humanInput[5];
     float number;
 
-    printf("Write a number (a for pi(3.14)): ");
-  
-    scanf("%s", &humanInput);
+    printf("\033[1;34m");  // Azul brillante
+    printf("Enter a number (a for pi): ");
+    printf("\033[0m");  // Restaurar color predeterminado
+
+    scanf("%s", humanInput);
 
     if (strcmp(humanInput, "a") == 0) {
         number = PI;
     } else {
-       number = atof(humanInput);
+        number = atof(humanInput);
     }
     return number;
 }
 
-char getSymbol()
-{
-  char symbol;
-  printf("Write a symbol (+, -, x): ");
-  scanf(" %c", &symbol);
 
-  return symbol;
+// Implementación de la función getResult
+struct isResult getResult(struct humanData data) {
+    struct isResult resultObj;
+    resultObj.isCorrect = true;
+
+    float firstNumber = data.firstNumber;
+    float secondNumber = data.secondNumber;
+    char symbol = data.symbol;
+
+    switch (symbol) {
+        case '+':
+            resultObj.number = firstNumber + secondNumber;
+            break;
+        case '-':
+            resultObj.number = firstNumber - secondNumber;
+            break;
+        case 'x':
+            resultObj.number = firstNumber * secondNumber;
+            break;
+        default:
+            resultObj.isCorrect = false;
+            break;
+    }
+
+    return resultObj;
 }
 
-struct isResult getResult(struct humanData data) 
-{
+// Devuelve el símbolo introducido
+char getSymbol() {
+    char symbol;
 
-  struct isResult resultObj; 
-  resultObj.isCorrect = true;
+    printf("\033[1;34m");  // Azul brillante
+    printf("Enter an operation (+, -, x): ");
+    printf("\033[0m");  // Restaurar color predeterminado
 
-  float firstNumber = data.firstNumber;
-  float secondNumber = data.secondNumber;
-  char symbol = data.symbol;
+    scanf(" %c", &symbol);
 
-  switch (symbol)
-  {
-    case '+':
-      resultObj.number = firstNumber + secondNumber;
-      break;
-      
-    case '-':
-      resultObj.number = firstNumber - secondNumber;
-      break;
-
-    case 'x':
-      resultObj.number = firstNumber * secondNumber;
-      break;
-
-    default:
-      resultObj.isCorrect = false;
-      break;
-  }
-
-  return resultObj;
-  
+    return symbol;
 }
 
+int main() {
+    struct humanData data;
+    struct isResult result;
 
-int main()
-{
+    printf("\033[1;34m");  // Azul brillante
+    printf("--------------- Calculator ---------------\n");
+    printf("\033[0m");  // Restaurar color predeterminado
 
-  struct humanData data;
-  struct isResult result;
+    data.firstNumber = getNumber();
 
-  printf("------- Welcome to MY CALCULATOR -------\n");
-  
-  data.firstNumber = getNumber();
+    printf("\033[1;34m");  // Azul brillante
+    printf("----------------------------------------\n");
+    printf("\033[0m");  // Restaurar color predeterminado
 
-  printf("---------------------------\n");
+    data.secondNumber = getNumber();
 
-  data.secondNumber = getNumber();
+    printf("\033[1;34m");  // Azul brillante
+    printf("----------------------------------------\n");
+    printf("\033[0m");  // Restaurar color predeterminado
 
-  printf("---------------------------\n");
+    data.symbol = getSymbol();
 
-  data.symbol = getSymbol();
+    result = getResult(data);
 
-  result = getResult(data);
+    printf("\033[1;34m");
+    printf("----------------------------------------\n");
+    printf("\033[0m");
 
-  system("cls");
+    if (result.isCorrect) {
+       showResult(data, result.number);
+    } else {
+        printf("\033[1;31m");  // Rojo brillante
+        printf("Invalid parameters\n");
+        printf("\033[0m");  // Restaurar color predeterminado
+    }
 
-  if (result.isCorrect){
-    printf("Result %.2f %c %.2f = %.2f", data.firstNumber, data.symbol, data.secondNumber, result.number);
-  }else{
-    printf("Los parámetros no son correctos");
-  }
-
-  
-  
-  return 0;
-
+    return 0;
 }
+
